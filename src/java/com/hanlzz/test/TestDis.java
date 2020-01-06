@@ -5,7 +5,6 @@ import redis.clients.jedis.Jedis;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.DoubleStream;
 
 import static com.hanlzz.util.GeoHash.findNearGrid;
 import static com.hanlzz.util.GeoHash.getGeoHashStr;
@@ -20,7 +19,7 @@ public class TestDis {
 
     private static void getNearByPeople(double lon, double lat) {
         Jedis jd = new Jedis("127.0.0.1", 6379);
-        System.out.println("距离你200米内的人有 : ");
+        System.out.println("距离你1000米内的人有 : ");
         long st = System.currentTimeMillis();
 
         String key = getGeoHashStr(lon, lat, 6);
@@ -31,8 +30,8 @@ public class TestDis {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String[] sp = entry.getValue().split(",");
                 int distance = (int) DistanceUtil.calcDistance(lon, lat, Double.parseDouble(sp[0]), Double.parseDouble(sp[1]));
-                if (distance < 200) {
-                    System.out.println("前缀 : "+gd+" 微信号 : " + entry.getKey() + " 经度 : " + sp[0] + "  纬度 : " + sp[1] + "  距离你 : " + distance + "米 ");
+                if (distance < 1000) {
+                    System.out.println("前缀 : " + gd + " 微信号 : " + entry.getKey() + " 经度 : " + sp[0] + "  纬度 : " + sp[1] + "  距离你 : " + distance + "米 ");
                 }
             }
         }

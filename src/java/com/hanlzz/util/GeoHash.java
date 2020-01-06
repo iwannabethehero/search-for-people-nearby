@@ -118,7 +118,7 @@ public class GeoHash {
 
         int info = grid.get(cs[idx]);
         int x = (info & 15) + up;
-        int y = ((info >> 4) & 15) + right;
+        int y = (info >> 4) + right;
         boolean overX = false, overY = false;
         if (x == lenX) {
             x = 0;
